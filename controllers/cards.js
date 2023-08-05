@@ -1,6 +1,6 @@
 const { ValidationError } = require('mongoose').Error;
 const {
-  BAD_REQUEST_CODE, ERROR_NOT_FOUND, INTERNAL_CODE, STATUS_OK, INVAILD_ID,
+  BAD_REQUEST_CODE, ERROR_NOT_FOUND, INTERNAL_CODE, STATUS_OK, INVAILD_ID, CREATED,
 } = require('../utils/constants');
 const Card = require('../models/card');
 
@@ -10,7 +10,7 @@ const createCard = (req, res) => {
   Card.create({ name, link, owner: _id })
     .then((card) => {
       res
-        .status(STATUS_OK)
+        .status(CREATED)
         .send(card);
     })
     .catch((err) => {

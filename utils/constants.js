@@ -1,4 +1,5 @@
 const STATUS_OK = 200;
+const CREATED = 201;
 const INVAILD_ID = 'NotValidId';
 const ERROR_CODE_UNIQUE = 11000;
 const BAD_REQUEST_CODE = 400;
@@ -7,6 +8,7 @@ const INTERNAL_CODE = 500;
 
 module.exports = {
   STATUS_OK,
+  CREATED,
   INVAILD_ID,
   ERROR_NOT_FOUND,
   ERROR_CODE_UNIQUE,

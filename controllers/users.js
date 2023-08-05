@@ -1,12 +1,11 @@
 const { ValidationError, CastError } = require('mongoose').Error;
 const {
-  BAD_REQUEST_CODE, ERROR_NOT_FOUND, INTERNAL_CODE, STATUS_OK,
+  BAD_REQUEST_CODE, ERROR_NOT_FOUND, INTERNAL_CODE, STATUS_OK, CREATED,
 } = require('../utils/constants');
 
 const User = require('../models/user');
 
 const getUser = (req, res) => {
-  console.log(req.params);
   const { id } = req.params;
 
   User.findById(id)
@@ -14,6 +13,7 @@ const getUser = (req, res) => {
       if (!user) {
         res.status(ERROR_NOT_FOUND);
         res.send({ message: 'Запрашиваемый пользователь не найден' });
+        return;
       }
       res.send(user);
     })
@@ -34,7 +34,7 @@ const createUser = (req, res) => {
   const { name, about, avatar } = req.body;
   User.create({ name, about, avatar })
     .then((user) => {
-      res.send(user);
+      res.status(CREATED).send(user);
     })
     .catch((err) => {
       if (err instanceof ValidationError) {
@@ -55,6 +55,7 @@ const getUsers = (req, res) => {
         res
           .status(BAD_REQUEST_CODE)
           .send({ message: 'Запрашиваемые пользователи не найдены' });
+        return;
       }
       res.send(users);
     })
@@ -73,6 +74,7 @@ const updateProfileInfo = (req, res) => {
         res
           .status(ERROR_NOT_FOUND)
           .send({ massage: 'Запрашиваемый пользователь не найден' });
+        return;
       }
       res.status(STATUS_OK).send(user);
     })
@@ -98,6 +100,7 @@ const updateAvatar = (req, res) => {
         res
           .status(BAD_REQUEST_CODE)
           .send({ message: 'Запрашиваемый пользователь не найден' });
+        return;
       }
 
       console.log(user);
