@@ -7,6 +7,7 @@ const cardsRouter = require('./routes/cards');
 
 const { PORT = 3000 } = process.env;
 const app = express();
+app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   req.user = {
@@ -16,7 +17,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(bodyParser.json());
 app.use('/users', usersRouter);
 app.use('/cards', cardsRouter);
 

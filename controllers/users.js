@@ -6,7 +6,9 @@ const {
 const User = require('../models/user');
 
 const getUser = (req, res) => {
+  console.log(req);
   const { id } = req.params;
+
   User.findById(id)
     .then((user) => {
       if (!user) {
