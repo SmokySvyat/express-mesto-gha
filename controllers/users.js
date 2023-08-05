@@ -31,8 +31,9 @@ const getUser = (req, res) => {
 };
 
 const createUser = (req, res) => {
+  console.log(req.body)
   const { name, about, avatar } = req.body;
-  User.create({ name, about, avatar })
+  User.create({ name, about, avatar }, { new: true, runValidators: true })
     .then((user) => {
       res.send(user);
     })
@@ -100,7 +101,6 @@ const updateAvatar = (req, res) => {
           .send({ message: 'Запрашиваемый пользователь не найден' });
       }
 
-      console.log(user);
       res.status(STATUS_OK).send(user);
     })
     .catch((err) => {

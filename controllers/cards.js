@@ -7,7 +7,8 @@ const Card = require('../models/card');
 const createCard = (req, res) => {
   const { _id } = req.user;
   const { name, link } = req.body;
-  Card.create({ name, link, owner: _id })
+  console.log(req.body)
+  Card.create({ name, link, owner: _id }, { new: true, runValidators: true })
     .then((card) => {
       res
         .status(STATUS_OK)
@@ -15,7 +16,6 @@ const createCard = (req, res) => {
     })
     .catch((err) => {
       if (err instanceof ValidationError) {
-        // eslint-disable-next-line no-console
         console.log(err);
         res
           .status(BAD_REQUEST_CODE)
