@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
@@ -16,7 +16,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(bodyParser);
+// app.use(bodyParser);
 app.use('/users', usersRouter);
 app.use('/cards', cardsRouter);
 
@@ -24,8 +24,8 @@ app.use('/*', (req, res) => {
   res.status(404).send({ message: 'Такой страницы не существует' });
 });
 
-mongoose.connect('mongodb://localhost:27017/testdb')
-  .then(() => console.log('Connected to the server'))
+mongoose.connect('mongodb://localhost:27017/mestodb')
+  .then(() => console.log('Connected to the data base'))
   .catch((err) => console.log(err));
 
 app.listen(PORT, () => {
