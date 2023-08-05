@@ -6,15 +6,14 @@ const {
 const User = require('../models/user');
 
 const getUser = (req, res) => {
-  console.log(req);
+  console.log(req.params);
   const { id } = req.params;
 
   User.findById(id)
     .then((user) => {
       if (!user) {
-        res
-          .status(ERROR_NOT_FOUND)
-          .send({ message: 'Запрашиваемый пользователь не найден' });
+        res.status(ERROR_NOT_FOUND);
+        res.send({ message: 'Запрашиваемый пользователь не найден' });
       }
       res.send(user);
     })
