@@ -7,7 +7,7 @@ const Card = require('../models/card');
 const createCard = (req, res) => {
   const { _id } = req.user;
   const { name, link } = req.body;
-  console.log(req.body)
+  console.log(req.body);
   Card.create({ name, link, owner: _id }, { new: true, runValidators: true })
     .then((card) => {
       res

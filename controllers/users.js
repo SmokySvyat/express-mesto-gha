@@ -31,7 +31,7 @@ const getUser = (req, res) => {
 };
 
 const createUser = (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   const { name, about, avatar } = req.body;
   User.create({ name, about, avatar }, { new: true, runValidators: true })
     .then((user) => {
