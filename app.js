@@ -2,26 +2,27 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+const { login, createUser } = require('./controllers/users');
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
+const auth = require('./middlewres/auth');
+const NotFound = require('./utils/errors/NotFound');
 
 const { PORT = 3000 } = process.env;
 const app = express();
+
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-  req.user = {
-    _id: '64ce3846504f1b8cff48486e',
-  };
+app.post('/signin', login);
+app.post('/signup', createUser);
 
-  next();
-});
+app.use(auth);
 
 app.use('/users', usersRouter);
 app.use('/cards', cardsRouter);
 
-app.use('/*', (req, res) => {
-  res.status(404).send({ message: 'Такой страницы не существует' });
+app.use('*', (req, res, next) => {
+  next(new NotFound('Такой страницы не существует'));
 });
 
 mongoose.connect('mongodb://localhost:27017/testdb')
