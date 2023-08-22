@@ -18,8 +18,7 @@ app.use(errors());
 app.use(errorHandler);
 
 mongoose.connect('mongodb://localhost:27017/testdb')
-  .then(() => console.log('Connected to the data base'))
-  .catch((err) => console.log(err));
+  .then(() => console.log('Connected to the data base'));
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
