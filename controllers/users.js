@@ -43,8 +43,13 @@ const createUser = (req, res, next) => {
     .then((hash) => User.create({
       name, about, avatar, email, password: hash,
     }))
-    .then((user) => {
-      res.status(CREATED).send(user);
+    .then(() => {
+      res.status(CREATED).send({
+        name,
+        about,
+        avatar,
+        email,
+      });
     })
     .catch((err) => {
       if (err.code === ERROR_CODE_UNIQUE) {
