@@ -116,9 +116,9 @@ const login = (req, res, next) => {
               maxAge: 36000 * 24 * 7,
               httpOnly: true,
               sameSite: true,
-            }).send({ data: user.toJSON() });
+            }).send({ newToken });
           } else {
-            next(new ErrorAccess({ message: 'Неверный логин или пароль' }));
+            next(new ErrorAccess('Неверный логин или пароль'));
           }
         });
     })
