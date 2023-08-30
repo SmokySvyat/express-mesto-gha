@@ -5,14 +5,18 @@ const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const errorHandler = require('./middlewres/error');
 const router = require('./routes');
+const { requestLogger, errorLogger } = require('./middlewres/logger');
 
 const { PORT = 3000 } = process.env;
 const app = express();
+app.use(requestLogger);
 
 app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use(router);
+
+app.use(errorLogger);
 
 app.use(errors());
 app.use(errorHandler);
